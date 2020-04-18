@@ -13,12 +13,12 @@ func Actions(b *model.Board) []model.Board {
 
 	possibleFutureStates := make([]model.Board, 0, 9)
 
-	symbol := getSymbol(b)
+	symbol := util.CurrentPlayerSymbol(b)
 
 	for i := 0; i < 3; i++ {
 		for j := 0; j < 3; j++ {
 			if b.GameBoard[i][j] == 0 {
-				newState := translate(b, i, j, symbol)
+				newState := MakeMove(b, model.Move{RowIndex: i, ColumnIndex: j, Symbol: symbol})
 				possibleFutureStates = append(possibleFutureStates, newState)
 			}
 		}
@@ -26,15 +26,8 @@ func Actions(b *model.Board) []model.Board {
 	return possibleFutureStates
 }
 
-func getSymbol(b *model.Board) int {
-	if b.IsPlayerX() == true {
-		return 1
-	}
-	return -1
-}
-
-//translate  returnes a new baord, based on board b, where it applies the symbol on the board, at the given coordinates
-func translate(b *model.Board, Xcoordinet, Ycoordinate int, symbol int) model.Board {
+//MakeMove  returnes a new baord, with the state of the old one, after applying a move to it.
+func MakeMove(b *model.Board, move model.Move) model.Board {
 	newBoard := util.CloneBoard(b)
 
 	for i := 0; i < 3; i++ {
@@ -43,7 +36,7 @@ func translate(b *model.Board, Xcoordinet, Ycoordinate int, symbol int) model.Bo
 		}
 	}
 
-	newBoard.GameBoard[Xcoordinet][Ycoordinate] = symbol
+	newBoard.GameBoard[move.RowIndex][move.ColumnIndex] = int(move.Symbol)
 
 	return newBoard
 }
