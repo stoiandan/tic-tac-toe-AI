@@ -50,9 +50,10 @@ func (b Board) IsGameOver() (bool, int) {
 			return true, b.GameBoard[j][i]
 		}
 	}
-	// is score even
-	if isAnyFieldEmpty == false {
-		return true, 0
+
+	// game is still going on
+	if isAnyFieldEmpty == true {
+		return false, -2
 	}
 
 	// check the main diagonal
@@ -65,6 +66,6 @@ func (b Board) IsGameOver() (bool, int) {
 		return true, b.GameBoard[1][2]
 	}
 
-	// game is still going on
-	return false, -2
+	// is score even
+	return true, 0
 }
