@@ -1,7 +1,6 @@
 package ai
 
 import (
-	"fmt"
 	"tictactoe/model"
 )
 
@@ -38,7 +37,6 @@ func MiniMax(b *model.Board) model.Board {
 	if isOver, _ := b.IsGameOver(); isOver == true {
 		return *b
 	}
-	fmt.Println(*b)
 	currentPlayer := b.Player()
 
 	if currentPlayer == model.X {
@@ -55,7 +53,8 @@ func min(b *model.Board) model.Board {
 	var bestBoard *model.Board
 
 	for _, possibleBoard := range Actions(b) {
-		if _, score := possibleBoard.IsGameOver(); score < bestCase {
+		result := MiniMax(&possibleBoard)
+		if _, score := result.IsGameOver(); score < bestCase {
 			bestCase = score
 			bestBoard = &possibleBoard
 		}
@@ -69,7 +68,8 @@ func max(b *model.Board) model.Board {
 	var bestBoard *model.Board
 
 	for _, possibleBoard := range Actions(b) {
-		if _, score := possibleBoard.IsGameOver(); score > bestCase {
+		result := MiniMax(&possibleBoard)
+		if _, score := result.IsGameOver(); score > bestCase {
 			bestCase = score
 			bestBoard = &possibleBoard
 		}
