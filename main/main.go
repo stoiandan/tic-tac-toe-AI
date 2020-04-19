@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"tictactoe/ai"
+	"tictactoe/model"
+)
 
 func main() {
-	fmt.Println("Hello world!")
+	board := model.Board{}
+	isOver, _ := board.IsGameOver()
+	for isOver == false {
+		fmt.Println(board)
+		board = ai.MiniMax(&board)
+		isOver, _ = board.IsGameOver()
+	}
 }

@@ -5,8 +5,8 @@ type Board struct {
 	GameBoard [3][3]int
 }
 
-//IsPlayerX returns true if it's player X's turn, false otherwise
-func (b Board) IsPlayerX() bool {
+//Player returns the Symbol of who's turn is it(X or 0)
+func (b Board) Player() Symbol {
 	/*
 		X is represented as 1
 		0 is represented as -1
@@ -21,7 +21,10 @@ func (b Board) IsPlayerX() bool {
 
 	// This is the beginning of the game, presupose X starts
 	// or there are more 0 (-1's) on the GameBoard
-	return sum >= 0
+	if sum <= 0 {
+		return X
+	}
+	return Zero
 }
 
 //IsGameOver reutnrs a tuple who's two values signify: the first values is a boolean, true if the game is over, false otherwise.
