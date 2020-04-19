@@ -50,20 +50,21 @@ func (b Board) IsGameOver() (bool, int) {
 			return true, b.GameBoard[j][i]
 		}
 	}
-	// check the main diagonal
-	if b.GameBoard[0][0] == b.GameBoard[1][1] && b.GameBoard[1][1] == b.GameBoard[2][2] {
-		return true, b.GameBoard[1][1]
-	}
-
-	//check the secodnary diagonal
-	if b.GameBoard[0][2] == b.GameBoard[1][2] && b.GameBoard[1][2] == b.GameBoard[2][0] {
-		return true, b.GameBoard[1][2]
-	}
-
 	// is score even
 	if isAnyFieldEmpty == false {
 		return true, 0
 	}
+
+	// check the main diagonal
+	if b.GameBoard[0][0] == b.GameBoard[1][1] && b.GameBoard[1][1] == b.GameBoard[2][2] && b.GameBoard[1][1] != 0 {
+		return true, b.GameBoard[1][1]
+	}
+
+	//check the secodnary diagonal
+	if b.GameBoard[0][2] == b.GameBoard[1][2] && b.GameBoard[1][2] == b.GameBoard[2][0] && b.GameBoard[1][2] != 0 {
+		return true, b.GameBoard[1][2]
+	}
+
 	// game is still going on
 	return false, -2
 }
