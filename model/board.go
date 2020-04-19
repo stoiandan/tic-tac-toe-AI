@@ -33,10 +33,10 @@ func (b Board) IsGameOver() (bool, int) {
 
 	isAnyFieldEmpty := false
 	i, j := 0, 0
-	for ; i < 3; i++ {
+	for i = 0; i < 3; i++ {
 		rowScore := 0
 		columnScore := 0
-		for ; j < 3; j++ {
+		for j = 0; j < 3; j++ {
 			if b.GameBoard[i][j] == 0 {
 				isAnyFieldEmpty = true
 			}
@@ -44,10 +44,10 @@ func (b Board) IsGameOver() (bool, int) {
 			columnScore += b.GameBoard[j][i]
 		}
 		if rowScore == 3 || rowScore == -3 {
-			return true, b.GameBoard[i][j]
+			return true, rowScore / 3
 		}
 		if columnScore == 3 || columnScore == -3 {
-			return true, b.GameBoard[j][i]
+			return true, columnScore / 3
 		}
 	}
 
