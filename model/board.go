@@ -1,5 +1,7 @@
 package model
 
+import "fmt"
+
 // Board represents the game GameBoard
 type Board struct {
 	GameBoard [3][3]int
@@ -67,4 +69,21 @@ func (b Board) IsGameOver() (bool, int) {
 
 	// is score even
 	return true, 0
+}
+
+//PreattyPrint pritns the GamebBorad in terms of X and 0 as opposed to mathematical model
+func (b Board) PreattyPrint() {
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			switch b.GameBoard[i][j] {
+			case -1:
+				fmt.Print("0 ")
+			case 1:
+				fmt.Print("X ")
+			case 0:
+				fmt.Print(" ")
+			}
+		}
+		fmt.Println()
+	}
 }
