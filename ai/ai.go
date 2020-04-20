@@ -34,9 +34,11 @@ func MiniMax(b *model.Board) model.Board {
 	currentPlayer := b.Player()
 
 	if currentPlayer == model.X {
-		return max(b)
+		result := max(b)
+		return MiniMax(&result)
 	}
-	return min(b)
+	result := min(b)
+	return MiniMax(&result)
 }
 
 func min(b *model.Board) model.Board {
