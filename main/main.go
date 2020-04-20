@@ -8,7 +8,13 @@ import (
 
 func main() {
 	board := model.Board{}
-	endGame := ai.MiniMax(&board)
+	isOver, _ := board.IsGameOver()
+	for ; isOver == false; isOver, _ = board.IsGameOver() {
+		fmt.Println(board)
+		board = ai.MiniMax(&board)
+	}
+	fmt.Println(board)
 
-	fmt.Println(endGame)
+	_, score := board.IsGameOver()
+	fmt.Println("Winner is:", score)
 }

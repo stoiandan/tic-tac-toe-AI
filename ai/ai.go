@@ -25,7 +25,7 @@ func Actions(b *model.Board) []model.Board {
 	return possibleFutureStates
 }
 
-//MakeMove  returnes a new baord, with the state of the old one, after applying a move to it.
+//MakeMove  returnes a new board, applying a move on top of the old board
 func MakeMove(b model.Board, move model.Move) model.Board {
 	b.GameBoard[move.RowIndex][move.ColumnIndex] = int(move.Symbol)
 
@@ -40,22 +40,19 @@ func MiniMax(b *model.Board) model.Board {
 	currentPlayer := b.Player()
 
 	if currentPlayer == model.X {
-		bestBoard := max(b)
-		return MiniMax(&bestBoard)
+		return max(b)
 	}
-	bestBoard := min(b)
-	return MiniMax(&bestBoard)
+	return min(b)
 }
 
 func min(b *model.Board) model.Board {
-
-	bestCase := 2
+	bestScore := 3
 	var bestBoard *model.Board
 
 	for _, possibleBoard := range Actions(b) {
-		result := MiniMax(&possibleBoard)
-		if _, score := result.IsGameOver(); score < bestCase {
-			bestCase = score
+		board := MiniMax(&possibleBoard)
+		if _, score := board.IsGameOver(); score < bestScore {
+			bestScore = score
 			bestBoard = &possibleBoard
 		}
 	}
@@ -63,14 +60,13 @@ func min(b *model.Board) model.Board {
 }
 
 func max(b *model.Board) model.Board {
-
-	bestCase := -3
+	bestScore := -3
 	var bestBoard *model.Board
 
 	for _, possibleBoard := range Actions(b) {
-		result := MiniMax(&possibleBoard)
-		if _, score := result.IsGameOver(); score > bestCase {
-			bestCase = score
+		board := MiniMax(&possibleBoard)
+		if _, score := board.IsGameOver(); score > bestScore {
+			bestScore = score
 			bestBoard = &possibleBoard
 		}
 	}

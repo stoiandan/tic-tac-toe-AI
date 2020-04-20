@@ -27,8 +27,7 @@ func (b Board) Player() Symbol {
 	return Zero
 }
 
-//IsGameOver reutnrs a tuple who's two values signify: the first values is a boolean, true if the game is over, false otherwise.
-// The second value is an integer,   -1 if 0 won, 1 is X won, or 0 is the score is equal, no one won, -2 if the game is not over
+//IsGameOver reutnrs a tuple (bool,int) telling if the game is over, and if it is, who won
 func (b Board) IsGameOver() (bool, int) {
 
 	isAnyFieldEmpty := false
@@ -51,19 +50,19 @@ func (b Board) IsGameOver() (bool, int) {
 		}
 	}
 
-	// game is still going on
-	if isAnyFieldEmpty == true {
-		return false, -2
-	}
-
 	// check the main diagonal
 	if b.GameBoard[0][0] == b.GameBoard[1][1] && b.GameBoard[1][1] == b.GameBoard[2][2] && b.GameBoard[1][1] != 0 {
 		return true, b.GameBoard[1][1]
 	}
 
 	//check the secodnary diagonal
-	if b.GameBoard[0][2] == b.GameBoard[1][2] && b.GameBoard[1][2] == b.GameBoard[2][0] && b.GameBoard[1][2] != 0 {
-		return true, b.GameBoard[1][2]
+	if b.GameBoard[0][2] == b.GameBoard[1][1] && b.GameBoard[1][1] == b.GameBoard[2][0] && b.GameBoard[1][1] != 0 {
+		return true, b.GameBoard[1][1]
+	}
+
+	// game is still going on
+	if isAnyFieldEmpty == true {
+		return false, 0
 	}
 
 	// is score even
