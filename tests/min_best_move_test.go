@@ -31,9 +31,9 @@ func TestDoesMaxMakeBestMove(t *testing.T) {
 }
 
 func TestDoesMinPreventMaxFromWinning(t *testing.T) {
-	board := model.Board{GameBoard: [3][3]int{{0, 0, 0},
-		{0, 1, -1},
-		{1, -1, 1}}}
+	board := model.Board{GameBoard: [3][3]int{{1, -1, 1},
+		{-1, 1, 0},
+		{0, 0, 0}}}
 
 	bestBoard := ai.MiniMax(&board)
 

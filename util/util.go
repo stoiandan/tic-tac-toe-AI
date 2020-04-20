@@ -1,14 +1,11 @@
 package util
 
-import "tictactoe/model"
+import (
+	"tictactoe/model"
+)
 
-//CloneBoard createsa new board, that replicates the given one
-func CloneBoard(b *model.Board) model.Board {
-	newBoard := model.Board{}
-	for i := 0; i < 3; i++ {
-		for j := 0; j < 3; j++ {
-			b.GameBoard[i][j] = newBoard.GameBoard[i][j]
-		}
-	}
-	return newBoard
+//MakeMove  returnes a new board, applying a move on top of the old board
+func MakeMove(b model.Board, move model.Move) model.Board {
+	b.GameBoard[move.RowIndex][move.ColumnIndex] = int(move.Symbol)
+	return b
 }
